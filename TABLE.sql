@@ -1,0 +1,17 @@
+CREATE TABLE ludzie(
+	id SERIAL PRIMARY KEY,
+	ilosc INT NOT NULL
+);
+
+CREATE TABLE zombie(
+	id SERIAL PRIMARY KEY,
+	ilosc INT NOT NULL
+);
+
+CREATE TABLE zasoby(
+	id SERIAL PRIMARY KEY,
+	bron INT NOT NULL,
+	jedzenie INT NOT NULL,
+	woda INT NOT NULL,
+	leki INT NOT NULL
+);
