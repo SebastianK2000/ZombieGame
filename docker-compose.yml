@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    image: obraz3
+    ports:
+      - 80:80
+    volumes:
+      - ./sciezka_do_kodu:/var/www/html
+      - ./sciezka_do_konfiguracji:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - db
+
+  db:
+    image: obraz3
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=DANE
