@@ -97,7 +97,7 @@ class Zasoby
 }
 
 // Pobieranie danych
-$dbConnection = new PDO('pgsql:host=localhost;dbname=DANE', 'admin', 'admin');
+$dbConnection = new PDO('pgsql:host=localhost:8080;dbname=DANE', 'admin', 'admin');
 
 $ludzieQuery = $dbConnection->query('SELECT * FROM ludzie');
 $ludzieData = $ludzieQuery->fetch(PDO::FETCH_ASSOC);

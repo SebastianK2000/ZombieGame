@@ -2,17 +2,26 @@ version: '3'
 
 services:
   web:
-    image: obraz3
+    image: httpd:latest
     ports:
-      - 80:80
+      - "80:80"
+
+
     volumes:
-      - ./sciezka_do_kodu:/var/www/html
-      - ./sciezka_do_konfiguracji:/etc/apache2/sites-available/000-default.conf
+    - C:/Users/Lenovo/OneDrive/Pulpit/ZombiePHP/ZombieGame/index.php
+
     depends_on:
       - db
 
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/app/
+
   db:
-    image: obraz3
+    image: httpd:latest
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
