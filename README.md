@@ -13,8 +13,6 @@ Use the PostgreSQL database to connect it to the PHP file and configure the conn
 
 In the project directory use the "docker-compose up" command. 
 
-PS. I would like to add that unfortunately I did not manage to fully refine the task by which I could not deal with one error during startup. I hope that with you this error will not happen.
-
 
 
 PL:
@@ -31,6 +29,4 @@ Aplikacja powinna być dostępna pod adresem http://localhost:8080
 Użyj bazy danych PostgreSQL aby połączyć ją z plikiem PHP oraz skonfiguruj połączenie w pliku konfiguracyjnym. 
 
 W katalogu projektu użyj komedny "docker-compose up" 
-
-PS. chciałbym dodać że niestety nie zdążyłem w pełni dopracować zadania przez co nie mogłem się uporać z jednym błędem podczas uruchomiania. Liczę że u Państwa ten błąd nie będzie miał miejsca. 
 
