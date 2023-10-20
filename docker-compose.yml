@@ -1,28 +1,25 @@
 version: '3'
-
 services:
-  web:
-    image: httpd:latest
+  apache:
+    image: php:8.0-apache
     ports:
       - "80:80"
-
-
     volumes:
-    - C:/Users/Lenovo/OneDrive/Pulpit/ZombiePHP/ZombieGame/index.php
-
+      - /Users/Lenovo/OneDrive/Pulpit/ZombiePHP/ZombieGame/Apache/apache.conf # Montowanie pliku konfiguracyjnego Apache
+      - /Users/Lenovo/OneDrive/Pulpit/ZombiePHP/ZombieGame/index.php  # Montowanie katalogu z kodem źródłowym PHP
     depends_on:
-      - db
+      - postgres
+    networks:
+      - mynetwork
 
-  php:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
-    volumes:
-      - .:/app/
-
-  db:
-    image: httpd:latest
+  postgres:
+    image: postgres:latest
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=DANE
+      POSTGRES_DB: ZombieSymulation
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

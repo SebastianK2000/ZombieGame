@@ -96,34 +96,39 @@ class Zasoby
     }
 }
 
-// Pobieranie danych
-$dbConnection = new PDO('pgsql:host=localhost:8080;dbname=DANE', 'admin', 'admin');
+try {
+    // Pobieranie danych
+    $dbConnection = new PDO('pgsql:host=localhost;port=8080;dbname=DANE', 'admin', 'admin');
+    $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$ludzieQuery = $dbConnection->query('SELECT * FROM ludzie');
-$ludzieData = $ludzieQuery->fetch(PDO::FETCH_ASSOC);
-$ludzie = new Ludzie($ludzieData['ilosc']);
+    $ludzieQuery = $dbConnection->query('SELECT * FROM Ludzie');
+    $ludzieData = $ludzieQuery->fetch(PDO::FETCH_ASSOC);
+    $ludzie = new Ludzie($ludzieData['ilosc']);
 
-$zombieQuery = $dbConnection->query('SELECT * FROM zombie');
-$zombieData = $zombieQuery->fetch(PDO::FETCH_ASSOC);
-$zombie = new Zombie($zombieData['ilosc']);
+    $zombieQuery = $dbConnection->query('SELECT * FROM Zombie');
+    $zombieData = $zombieQuery->fetch(PDO::FETCH_ASSOC);
+    $zombie = new Zombie($zombieData['ilosc']);
 
-$zasobyQuery = $dbConnection->query('SELECT * FROM zasoby');
-$zasobyData = $zasobyQuery->fetch(PDO::FETCH_ASSOC);
-$zasoby = new Zasoby($zasobyData['bron'], $zasobyData['jedzenie'], $zasobyData['woda'], $zasobyData['leki']);
+    $zasobyQuery = $dbConnection->query('SELECT * FROM Zasoby');
+    $zasobyData = $zasobyQuery->fetch(PDO::FETCH_ASSOC);
+    $zasoby = new Zasoby($zasobyData['bron'], $zasobyData['jedzenie'], $zasobyData['woda'], $zasobyData['leki']);
 
-// Interakcje
-$ludzie->setIlosc($ludzie->getIlosc() - 5); // 5 ludzi umiera przez zombie
-$zombie->setIlosc($zombie->getIlosc() + 5); // pojawia się 5 nowych zombie w związku z poprzednim zdarzeniem
-$zasoby->setJedzenie($zasoby->getJedzenie() - 20); // Ludzie wykorzystują 20 jednostek pożywienia
+    // Interakcje
+    $ludzie->setIlosc($ludzie->getIlosc() - 5); // 5 ludzi umiera przez zombie
+    $zombie->setIlosc($zombie->getIlosc() + 5); // pojawia się 5 nowych zombie w związku z poprzednim zdarzeniem
+    $zasoby->setJedzenie($zasoby->getJedzenie() - 20); // Ludzie wykorzystują 20 jednostek pożywienia
 
-// Aktualizacja danych
-$dbConnection->query("UPDATE ludzie SET ilosc = {$ludzie->getIlosc()}");
-$dbConnection->query("UPDATE zombie SET ilosc = {$zombie->getIlosc()}");
-$dbConnection->query("UPDATE zasoby SET jedzenie = {$zasoby->getJedzenie()}");
+    // Aktualizacja danych
+    $dbConnection->query("UPDATE Ludzie SET ilosc = :ilosc")->execute([':ilosc' => $ludzie->getIlosc()]);
+    $dbConnection->query("UPDATE Zombie SET ilosc = :ilosc")->execute([':ilosc' => $zombie->getIlosc()]);
+    $dbConnection->query("UPDATE Zasoby SET jedzenie = :jedzenie")->execute([':jedzenie' => $zasoby->getJedzenie()]);
 
-// Aktualny stan symulacji
-echo "Liczba ludzi: " . $ludzie->getIlosc() . "<br>";
-echo "Liczba zombie: " . $zombie->getIlosc() . "<br>";
-echo "Liczba jedzenia: " . $zasoby->getJedzenie() . "<br>";
+    // Aktualny stan symulacji
+    echo "Liczba ludzi: " . $ludzie->getIlosc() . "<br>";
+    echo "Liczba zombie: " . $zombie->getIlosc() . "<br>";
+    echo "Liczba jedzenia: " . $zasoby->getJedzenie() . "<br>";
+} catch (PDOException $e) {
+    echo "Błąd połączenia z bazą danych: " . $e->getMessage();
+}
 
 ?>
