@@ -8,14 +8,11 @@ This is a simple PHP application for simulating a zombie outbreak scenario. It i
 
 - Docker: Make sure you have Docker installed on your system.
 
-<<<<<<< HEAD
-=======
 ## Setup
 
 1. Clone this repository to your local machine.
 
 2. In the project root directory, create a `.env` file with the following PostgreSQL configuration. Replace the placeholders with your desired values:
->>>>>>> 5154a377ad539019c60c7cc0baa6909615b5abf0
 
    ```env
    POSTGRES_DB=ZombieSimulation
@@ -29,12 +26,12 @@ docker-compose up -d
 
 This will start the Apache and PostgreSQL containers.
 
-<<<<<<< HEAD
 W katalogu projektu użyj komedny "docker-compose up" 
-=======
+
 Access the application in your web browser at http://localhost.
 
 Usage
+
 The main PHP code for the zombie simulation is located in the index.php file. You can modify and expand this code to create your own simulation scenarios.
 
 The PostgreSQL database stores data related to the simulation. You can access it from within your PHP code by using the provided configuration.
@@ -90,4 +87,3 @@ Jeśli napotkasz problemy z aplikacją, sprawdź dzienniki kontenerów Apache i 
 
 Jeśli pojawi się błąd "Forbidden", upewnij się, że uprawnienia do plików i katalogów są ustawione poprawnie. Możesz użyć polecenia chmod, aby dostosować uprawnienia w razie potrzeby.
 
->>>>>>> 5154a377ad539019c60c7cc0baa6909615b5abf0
