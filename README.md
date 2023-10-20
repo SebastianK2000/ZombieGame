@@ -42,6 +42,8 @@ If you get a "Forbidden" error, ensure that file and directory permissions are s
 
 -----------------------------------------------
 
+# Aplikacja PHP symulująca zombie
+
 PL
 
 Jest to prosta aplikacja PHP do symulacji scenariusza epidemii zombie. Zawiera kod PHP do zarządzania symulacją, bazę danych PostgreSQL do przechowywania danych oraz konfigurację Docker dla łatwej konfiguracji i wdrożenia.
